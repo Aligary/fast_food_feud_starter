@@ -29,7 +29,9 @@ export function App() {
       <div className="CategoriesColumn col">
         <div className="categories options">
           <h2 className="title">Categories</h2>
-          {/* YOUR CODE HERE */}
+          {categories.map(d => (
+            <p key={d}>{d}</p>
+          ))}
         </div>
       </div>
 
