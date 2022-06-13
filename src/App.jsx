@@ -29,8 +29,8 @@ export function App() {
       <div className="CategoriesColumn col">
         <div className="categories options">
           <h2 className="title">Categories</h2>
-          {categories.map(d => (
-            <p key={d}>{d}</p>
+          {categories.map(e => (
+            <p key={e}>{e}</p>
           ))}
         </div>
       </div>
@@ -42,7 +42,9 @@ export function App() {
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
-          <div className="restaurants options">{/* YOUR CODE HERE */}</div>
+          <div className="restaurants options">{restaurants.map(e =>(
+            <p>{e}</p>
+          ))}</div>
         </div>
 
         <Instructions ins={appInfo}></Instructions>
