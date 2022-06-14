@@ -1,7 +1,7 @@
 import * as React from "react"
 import "./Chip.css"
 
-export function Chip({ label = "", isActive = false, onClick={}  }) {
+export function Chip({ label = "", isActive = false, onClick=() => {}  }) {
   var buttonClassName = "";
   if(!isActive)
   {

@@ -7,6 +7,7 @@ import {Instructions} from "./components/Instructions/Instructions"
 import {Chip} from "./components/Chip/Chip"
 import { useState } from "react"
 import "./components/NutritionalLabel/NutritionalLabel"
+import NutritionalLabel, { NutritionalLabelFact } from "./components/NutritionalLabel/NutritionalLabel"
 
 // don't move this!
 export const appInfo = {
@@ -35,6 +36,10 @@ export function App() {
   });
 
   let index = 0;
+  let itemInfo;
+  let catActive;
+  let resActive;
+  let itemActive;
     
   return (
     <main className="App">
@@ -43,13 +48,13 @@ export function App() {
         <div className="categories options">
           <h2 className="title">Categories</h2>
           {categories.map((e) => {
-            let active = (e == selectedCategory ? true : false)
+            catActive = (e == selectedCategory ? true : false)
             return <Chip 
                       key={e} 
                       chip={e} 
                       label={e} 
                       category={selectedCategory} 
-                      isActive={active}
+                      isActive={catActive}
                       onClick={() => {
                         setSelectedCategory(e)
                       }}>
@@ -61,19 +66,19 @@ export function App() {
 
       {/* MAIN COLUMN */}
       <div className="container">
-        <Header header={appInfo}></Header>
+        <Header title={appInfo.title} tagline={appInfo.tagline} description={appInfo.description}></Header>
 
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
           <div className="restaurants options">{restaurants.map((e) => {
-            let active = (e == selectedRestaurant ? true : false)
+            resActive = (e == selectedRestaurant ? true : false)
             return <Chip 
                       key={e} 
                       chip={e} 
                       label={e} 
                       category={selectedRestaurant} 
-                      isActive={active}
+                      isActive={resActive}
                       onClick={() => {
                         setSelectedRestaurant(e)
                       }}>
@@ -82,24 +87,25 @@ export function App() {
         })}
           </div>
         </div>
-        <Instructions ins={appInfo}></Instructions>
+        {}
+        <Instructions instructions={appInfo.instructions.start}></Instructions>
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
             
             {currentMenuItems.map((e) => {
-              console.log(e)
+              itemInfo = e;
               index++;
-              let active = (e.item_name == selectedMenuItem ? true : false)
+              itemActive = (e.item_name == selectedMenuItem ? true : false)
             return <Chip 
                       key={index} 
                       chip={e.item_name} 
                       label={e.item_name} 
                       category={selectedMenuItem} 
-                      isActive={active}
+                      isActive={itemActive}
                       onClick={() => {
-                        setSelectedMenuItem(e.item_name)
+                        setSelectedMenuItem(e)
                       }}>
                       
                     </Chip>
@@ -108,7 +114,10 @@ export function App() {
 
           {/* NUTRITION FACTS */}
           <div className="NutritionFacts nutrition-facts">
-            {/* YOUR CODE HERE */}
+            {
+              selectedMenuItem ? <NutritionalLabel item={selectedMenuItem}/> : null
+            }
+              
           </div>
         </div>
 
