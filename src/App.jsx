@@ -4,6 +4,8 @@ import { createDataSet } from "./data/dataset"
 import "./App.css"
 import {Header} from "./components/Header/Header"
 import {Instructions} from "./components/Instructions/Instructions"
+import {Chip} from "./components/Chip/Chip"
+import { useState } from "react"
 
 // don't move this!
 export const appInfo = {
@@ -23,15 +25,30 @@ export const appInfo = {
 const { data, categories, restaurants } = createDataSet()
 
 export function App() {
+  const[selectedCategory, setSelectedCategory] = useState()
+  const[selectedRestaurant, setSelectedRestaurant] = useState()
+
+
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
       <div className="CategoriesColumn col">
         <div className="categories options">
           <h2 className="title">Categories</h2>
-          {categories.map(e => (
-            <p key={e}>{e}</p>
-          ))}
+          {categories.map((e) => {
+            let active = (e == selectedCategory ? true : false)
+            return <Chip 
+                      key={e} 
+                      chip={e} 
+                      label={e} 
+                      category={selectedCategory} 
+                      isActive={active}
+                      onClick={() => {
+                        setSelectedCategory(e)
+                      }}>
+                      
+                    </Chip>
+        })}
         </div>
       </div>
 
@@ -42,9 +59,21 @@ export function App() {
         {/* RESTAURANTS ROW */}
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
-          <div className="restaurants options">{restaurants.map(e =>(
-            <p>{e}</p>
-          ))}</div>
+          <div className="restaurants options">{restaurants.map((e) => {
+            let active = (e == selectedRestaurant ? true : false)
+            return <Chip 
+                      key={e} 
+                      chip={e} 
+                      label={e} 
+                      category={selectedRestaurant} 
+                      isActive={active}
+                      onClick={() => {
+                        setSelectedRestaurant(e)
+                      }}>
+                      
+                    </Chip>
+        })}
+          </div>
         </div>
 
         <Instructions ins={appInfo}></Instructions>
