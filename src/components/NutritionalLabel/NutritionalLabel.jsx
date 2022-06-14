@@ -27,7 +27,6 @@ export function NutritionalLabelFact(props) {
   
   let word =  props.attribute != 'fiber' ? props.item?.[props.attribute] : props.item?.["dietary_fiber"]
 
-  console.log(props)
   return (
     <li className="nutrition-fact">
       <span className="fact-label">{props.label}</span>{" "}

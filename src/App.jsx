@@ -8,6 +8,7 @@ import {Chip} from "./components/Chip/Chip"
 import { useState } from "react"
 import "./components/NutritionalLabel/NutritionalLabel"
 import NutritionalLabel, { NutritionalLabelFact } from "./components/NutritionalLabel/NutritionalLabel"
+import { act } from "react-dom/test-utils"
 
 // don't move this!
 export const appInfo = {
@@ -53,6 +54,7 @@ export function App() {
                       isActive={active}
                       onClick={() => {
                         setSelectedCategory(e)
+                        
                       }}>
                       
                     </Chip>
@@ -77,13 +79,23 @@ export function App() {
                       isActive={active}
                       onClick={() => {
                         setSelectedRestaurant(e)
+                        
                       }}>
                       
                     </Chip>
         })}
           </div>
         </div>
-        <Instructions instructions= {appInfo.instructions.start}></Instructions>
+        
+        <Instructions instructions= 
+        {
+          !selectedCategory && !selectedRestaurant ? appInfo.instructions.start : 
+          selectedCategory && !selectedRestaurant ? appInfo.instructions.onlyCategory :
+          !selectedCategory && selectedRestaurant ? appInfo.instructions.onlyRestaurant :
+          selectedCategory && selectedRestaurant && !selectedMenuItem ? appInfo.instructions.noSelectedItem :
+          appInfo.instructions.allSelected
+        }
+        ></Instructions>
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
@@ -102,6 +114,7 @@ export function App() {
                       onClick={() => {
                         setSelectedMenuItem(e)
                       }}>
+                      
                       
                     </Chip>
         })}
