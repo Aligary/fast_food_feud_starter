@@ -37,10 +37,6 @@ export function App() {
 
   let index = 0;
   let itemInfo;
-  let catActive;
-  let resActive;
-  let itemActive;
-    
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
@@ -48,13 +44,13 @@ export function App() {
         <div className="categories options">
           <h2 className="title">Categories</h2>
           {categories.map((e) => {
-            catActive = (e == selectedCategory ? true : false)
+            let active = (e == selectedCategory ? true : false)
             return <Chip 
                       key={e} 
                       chip={e} 
                       label={e} 
                       category={selectedCategory} 
-                      isActive={catActive}
+                      isActive={active}
                       onClick={() => {
                         setSelectedCategory(e)
                       }}>
@@ -72,13 +68,13 @@ export function App() {
         <div className="RestaurantsRow">
           <h2 className="title">Restaurants</h2>
           <div className="restaurants options">{restaurants.map((e) => {
-            resActive = (e == selectedRestaurant ? true : false)
+            let active = (e == selectedRestaurant ? true : false)
             return <Chip 
                       key={e} 
                       chip={e} 
                       label={e} 
                       category={selectedRestaurant} 
-                      isActive={resActive}
+                      isActive={active}
                       onClick={() => {
                         setSelectedRestaurant(e)
                       }}>
@@ -87,8 +83,7 @@ export function App() {
         })}
           </div>
         </div>
-        {}
-        <Instructions instructions={appInfo.instructions.start}></Instructions>
+        <Instructions instructions= {appInfo.instructions.start}></Instructions>
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
@@ -97,13 +92,13 @@ export function App() {
             {currentMenuItems.map((e) => {
               itemInfo = e;
               index++;
-              itemActive = (e.item_name == selectedMenuItem ? true : false)
+              let active = (e.item_name == selectedMenuItem ? true : false)
             return <Chip 
                       key={index} 
                       chip={e.item_name} 
                       label={e.item_name} 
                       category={selectedMenuItem} 
-                      isActive={itemActive}
+                      isActive={active}
                       onClick={() => {
                         setSelectedMenuItem(e)
                       }}>
