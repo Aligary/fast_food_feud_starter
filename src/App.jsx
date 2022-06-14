@@ -6,6 +6,7 @@ import {Header} from "./components/Header/Header"
 import {Instructions} from "./components/Instructions/Instructions"
 import {Chip} from "./components/Chip/Chip"
 import { useState } from "react"
+import "./components/NutritionalLabel/NutritionalLabel"
 
 // don't move this!
 export const appInfo = {
@@ -25,10 +26,16 @@ export const appInfo = {
 const { data, categories, restaurants } = createDataSet()
 
 export function App() {
-  const[selectedCategory, setSelectedCategory] = useState()
-  const[selectedRestaurant, setSelectedRestaurant] = useState()
+  const[selectedCategory, setSelectedCategory] = useState();
+  const[selectedRestaurant, setSelectedRestaurant] = useState();
+  const[selectedMenuItem, setSelectedMenuItem] = useState();
 
+  let currentMenuItems = data.filter((e) => {
+    return (e.food_category === selectedCategory) && (e.restaurant === selectedRestaurant)
+  });
 
+  let index = 0;
+    
   return (
     <main className="App">
       {/* CATEGORIES COLUMN */}
@@ -75,18 +82,34 @@ export function App() {
         })}
           </div>
         </div>
-
         <Instructions ins={appInfo}></Instructions>
-
         {/* MENU DISPLAY */}
         <div className="MenuDisplay display">
           <div className="MenuItemButtons menu-items">
             <h2 className="title">Menu Items</h2>
-            {/* YOUR CODE HERE */}
+            
+            {currentMenuItems.map((e) => {
+              console.log(e)
+              index++;
+              let active = (e.item_name == selectedMenuItem ? true : false)
+            return <Chip 
+                      key={index} 
+                      chip={e.item_name} 
+                      label={e.item_name} 
+                      category={selectedMenuItem} 
+                      isActive={active}
+                      onClick={() => {
+                        setSelectedMenuItem(e.item_name)
+                      }}>
+                      
+                    </Chip>
+        })}
           </div>
 
           {/* NUTRITION FACTS */}
-          <div className="NutritionFacts nutrition-facts">{/* YOUR CODE HERE */}</div>
+          <div className="NutritionFacts nutrition-facts">
+            {/* YOUR CODE HERE */}
+          </div>
         </div>
 
         <div className="data-sources">
